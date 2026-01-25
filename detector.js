@@ -6,10 +6,6 @@ window.addEventListener("load", () => {
   }
 });
 
-// Open file picker
-function openImagePicker() {
-  document.getElementById("imageInput").click();
-}
 
 // Handle image upload + OCR
 async function handleImageUpload(event) {
