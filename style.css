@@ -271,3 +271,15 @@ body.detector-page {
   cursor: pointer;
 }
 
+.icon-btn {
+  font-size: 22px;        /* Bigger icon */
+  background: transparent;
+  border: none;
+  color: #9ee7ff;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.icon-btn:hover {
+  color: #00ffcc;
+}
