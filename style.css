@@ -283,3 +283,8 @@ body.detector-page {
 .icon-btn:hover {
   color: #00ffcc;
 }
+
+#imageInput {
+  display: none;
+}
+
