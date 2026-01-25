@@ -1,6 +1,10 @@
-if (typeof Tesseract === "undefined") {
-  console.error("❌ Tesseract failed to load");
-}
+window.addEventListener("load", () => {
+  if (typeof Tesseract === "undefined") {
+    console.error("❌ Tesseract failed to load");
+  } else {
+    console.log("✅ Tesseract loaded");
+  }
+});
 
 // Open file picker
 function openImagePicker() {
@@ -16,38 +20,33 @@ async function handleImageUpload(event) {
   input.value = "⏳ Extracting text from image...";
 
   try {
-    const result = await Tesseract.recognize(
-      file,
-      "eng",
-      {
-        logger: m => console.log(m) // progress in console
+  const worker = Tesseract.createWorker({
+    logger: m => {
+      if (m.status === "recognizing text") {
+        input.value = `🧠 OCR in progress... ${Math.floor(m.progress * 100)}%`;
       }
-    );
-
-    const text = result.data.text.trim();
-
-    if (!text) {
-      input.value = "❌ No readable text found in image.";
-      return;
     }
+  });
 
-    // Show OCR text to user
-    input.value = text;
+  await worker.loadLanguage("eng");
+  await worker.initialize("eng");
 
-  } catch (err) {
-    console.error(err);
-    input.value = "❌ OCR failed. Try a clearer image.";
+  const { data } = await worker.recognize(file);
+  const text = data.text.trim();
+
+  await worker.terminate();
+
+  if (!text) {
+    input.value = "❌ No readable text found in image.";
+    return;
   }
-}
 
-// Fake AI response (placeholder)
-function sendMessage() {
-  const text = document.getElementById("newsInput").value.trim();
-  if (!text) return;
+  input.value = text;
 
-  alert(
-    "AI Prediction (demo)\n\n" +
-    "Text received successfully.\n" +
-    "Connect your trained ML model here."
-  );
+  // Optional auto-send
+  // sendMessage();
+
+} catch (err) {
+  console.error(err);
+  input.value = "❌ OCR failed. Try a clearer image.";
 }
