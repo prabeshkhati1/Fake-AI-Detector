@@ -39,13 +39,22 @@
 
   <!-- INPUT BAR -->
   <footer class="input-bar">
-    <input
-      type="text"
-      id="newsInput"
-      placeholder="Paste news text here or upload an image..."
-    />
-    <button onclick="sendMessage()">➤</button>
-  </footer>
+  <!-- Hidden file input -->
+  <input type="file" id="imageInput" accept="image/*" hidden />
+
+  <!-- Upload button -->
+  <button class="upload-btn" onclick="openFile()">📎</button>
+
+  <!-- Text input -->
+  <input
+    type="text"
+    id="newsInput"
+    placeholder="Paste news text here or upload an image..."
+  />
+
+  <!-- Send button -->
+  <button class="send-btn" onclick="sendMessage()">➤</button>
+</footer>
 
   <script src="detector.js"></script>
 </body>
