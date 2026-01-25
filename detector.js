@@ -13,10 +13,10 @@ async function handleImageUpload(event) {
   if (!file) return;
 
   const input = document.getElementById("newsInput");
-  input.value = "🧠 Extracting text from image...";
+  input.value = "🧠 Initializing OCR...";
 
   try {
-    const worker = Tesseract.createWorker({
+    const worker = await Tesseract.createWorker({
       logger: m => {
         if (m.status === "recognizing text") {
           input.value = `🧠 OCR in progress... ${Math.floor(m.progress * 100)}%`;
@@ -24,6 +24,8 @@ async function handleImageUpload(event) {
       }
     });
 
+    // ✅ REQUIRED in v5
+    await worker.load();
     await worker.loadLanguage("eng");
     await worker.initialize("eng");
 
@@ -34,8 +36,8 @@ async function handleImageUpload(event) {
     input.value = text || "❌ No readable text found.";
 
   } catch (err) {
-    console.error(err);
-    input.value = "❌ OCR failed. Try a clearer image.";
+    console.error("OCR ERROR:", err);
+    input.value = "❌ OCR failed. See console.";
   }
 }
 
