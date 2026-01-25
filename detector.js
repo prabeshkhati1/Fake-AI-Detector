@@ -45,3 +45,24 @@ document.getElementById("imageInput").addEventListener("change", function () {
     chat.scrollTop = chat.scrollHeight;
   }
 });
+
+function openImagePicker() {
+  document.getElementById("imageInput").click();
+}
+
+document.getElementById("imageInput").addEventListener("change", function () {
+  const file = this.files[0];
+  if (!file) return;
+
+  const resultBox = document.getElementById("chatArea");
+  resultBox.innerHTML += `
+    <div class="message system">
+      🖼 Image selected: <b>${file.name}</b><br>
+      OCR processing will be applied here.
+    </div>
+  `;
+
+  // FUTURE:
+  // → Send image to OCR (Tesseract.js / backend API)
+});
+
