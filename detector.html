@@ -39,17 +39,18 @@
 
   <!-- INPUT BAR -->
 <footer class="input-bar">
-  <!-- Upload button -->
-  <button class="icon-btn" onclick="openImagePicker()" title="Upload image for OCR">
-    📎
-  </button>
+  <!-- Upload icon -->
+<label for="imageInput" class="icon-btn" title="Upload image for OCR">
+  📎
+</label>
 
-  <!-- Text input -->
-  <input
-    type="text"
-    id="newsInput"
-    placeholder="Paste news text here or upload an image..."
-  />
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  onchange="handleImageUpload(event)"
+/>
+
 
   <!-- Send button -->
   <button class="send-btn" onclick="sendMessage()">
