@@ -61,24 +61,22 @@
   <button class="send-btn" onclick="sendMessage()">➤</button>
 </footer>
 
-  <script src="detector.js"></script>
-  <input 
-  type="file" 
-  id="imageInput" 
-  accept="image/*" 
-  hidden 
+ <!-- Hidden file input for OCR -->
+<input
+  type="file"
+  id="imageInput"
+  accept="image/*"
+  hidden
   onchange="handleImageUpload(event)"
 >
 
-</body>
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+<!-- OCR library MUST come first -->
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+<!-- Your logic -->
 <script src="detector.js"></script>
 
-  <input 
-  type="file" 
-  id="imageInput" 
-  accept="image/*" 
-  style="display:none"
-/>
+
+</body>
 
 </html>
