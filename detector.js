@@ -1,3 +1,7 @@
+if (typeof Tesseract === "undefined") {
+  console.error("❌ Tesseract failed to load");
+}
+
 // Open file picker
 function openImagePicker() {
   document.getElementById("imageInput").click();
