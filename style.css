@@ -275,25 +275,18 @@ body.detector-page {
   cursor: pointer;
 }
 
-.icon-btn {
-  font-size: 22px;        /* already good */
-  background: transparent;
-  border: none;
-  color: #9ee7ff;
-  cursor: pointer;
-  padding: 8px 12px;
-
-  position: relative;    /* ADD THIS */
-  z-index: 10;            /* ADD THIS */
-}
 
 #imageInput {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
+  display: none;
 }
+
+.icon-btn {
+  cursor: pointer;
+  font-size: 22px;
+  z-index: 10;
+  position: relative;
+}
+
 
 #newsInput {
   flex: 1;
