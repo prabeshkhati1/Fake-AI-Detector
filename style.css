@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +10,107 @@ body {
 }
 
 /* =============================
-   DETECTOR PAGE
+   LANDING PAGE (index.html)
+============================= */
+
+body.landing {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0f2a4f 0%, #020617 70%);
+  color: #e5e7eb;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(2, 6, 23, 0.65),
+    rgba(2, 6, 23, 0.9)
+  );
+  z-index: 0;
+}
+
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 90px 20px 70px;
+  text-align: center;
+}
+
+.shield-icon {
+  font-size: 64px;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 90px;
+  height: 90px;
+  border-radius: 24px;
+
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+
+  box-shadow:
+    0 0 0 1px rgba(34, 197, 94, 0.25),
+    0 20px 60px rgba(34, 197, 94, 0.25);
+}
+
+.hero h1 {
+  font-size: 44px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.hero h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #86efac;
+  margin-bottom: 26px;
+}
+
+.hero-text {
+  max-width: 720px;
+  margin: 0 auto 38px;
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: #cbd5f5;
+}
+
+.btn {
+  display: inline-block;
+  padding: 14px 36px;
+  border-radius: 999px;
+  background: #22c55e;
+  color: #022c22;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.features {
+  margin-top: 70px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 26px;
+}
+
+.card {
+  padding: 28px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.card .icon {
+  font-size: 40px;
+  margin-bottom: 18px;
+}
+
+/* =============================
+   DETECTOR PAGE (detector.html)
 ============================= */
 
 body.detector-page {
@@ -18,7 +119,7 @@ body.detector-page {
   flex-direction: column;
   background: #f8fafc;
   color: #020617;
-  padding-bottom: 72px; /* space for input bar */
+  padding-bottom: 72px;
 }
 
 /* HEADER */
@@ -26,11 +127,9 @@ body.detector-page {
   height: 58px;
   background: #020617;
   color: white;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   padding: 0 16px;
 }
 
@@ -57,7 +156,7 @@ body.detector-page {
   align-items: center;
 }
 
-/* INFO CARD */
+/* INFO */
 .info-card {
   background: white;
   padding: 18px 22px;
@@ -70,7 +169,7 @@ body.detector-page {
   margin-bottom: 24px;
 }
 
-/* CHAT AREA */
+/* CHAT */
 .chat-area {
   flex: 1;
   width: 100%;
@@ -83,15 +182,12 @@ body.detector-page {
   bottom: 0;
   left: 0;
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 8px;
-
   padding: 10px;
   background: #1e1e1e;
   border-top: 1px solid #333;
-
   z-index: 1000;
 }
 
@@ -104,19 +200,14 @@ body.detector-page {
   font-size: 14px;
 }
 
-.input-bar input:focus {
-  outline: none;
-  border-color: #22c55e;
-}
-
-/* ICON BUTTON */
+/* ICON */
 .icon-btn {
   font-size: 22px;
   cursor: pointer;
   color: #9ee7ff;
 }
 
-/* SEND BUTTON */
+/* SEND */
 .send-btn {
   width: 44px;
   height: 44px;
