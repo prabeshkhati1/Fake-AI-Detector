@@ -1,3 +1,4 @@
+// Check OCR library
 window.addEventListener("load", () => {
   if (typeof Tesseract === "undefined") {
     console.error("❌ Tesseract failed to load");
@@ -6,43 +7,47 @@ window.addEventListener("load", () => {
   }
 });
 
-
-// Handle image upload + OCR
+// OCR handler
 async function handleImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
 
   const input = document.getElementById("newsInput");
-  input.value = "⏳ Extracting text from image...";
+  input.value = "🧠 Extracting text from image...";
 
   try {
-  const worker = Tesseract.createWorker({
-    logger: m => {
-      if (m.status === "recognizing text") {
-        input.value = `🧠 OCR in progress... ${Math.floor(m.progress * 100)}%`;
+    const worker = Tesseract.createWorker({
+      logger: m => {
+        if (m.status === "recognizing text") {
+          input.value = `🧠 OCR in progress... ${Math.floor(m.progress * 100)}%`;
+        }
       }
-    }
-  });
+    });
 
-  await worker.loadLanguage("eng");
-  await worker.initialize("eng");
+    await worker.loadLanguage("eng");
+    await worker.initialize("eng");
 
-  const { data } = await worker.recognize(file);
-  const text = data.text.trim();
+    const { data } = await worker.recognize(file);
+    await worker.terminate();
 
-  await worker.terminate();
+    const text = data.text.trim();
+    input.value = text || "❌ No readable text found.";
 
-  if (!text) {
-    input.value = "❌ No readable text found in image.";
-    return;
+  } catch (err) {
+    console.error(err);
+    input.value = "❌ OCR failed. Try a clearer image.";
   }
+}
 
-  input.value = text;
+// Send message (placeholder)
+function sendMessage() {
+  const input = document.getElementById("newsInput");
+  if (!input.value.trim()) return;
 
-  // Optional auto-send
-  // sendMessage();
+  alert("Text sent for analysis:\n\n" + input.value);
+}
 
-} catch (err) {
-  console.error(err);
-  input.value = "❌ OCR failed. Try a clearer image.";
+// Clear chat
+function clearChat() {
+  document.getElementById("chatArea").innerHTML = "";
 }
