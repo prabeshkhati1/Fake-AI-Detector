@@ -216,13 +216,17 @@ body.detector-page {
 
 /* Input bar */
 .input-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 8px;
-
-  padding: 14px;
-  border-top: 1px solid #e5e7eb;
-  background: white;
+  padding: 10px;
+  background: #1e1e1e;
+  border-top: 1px solid #333;
+  z-index: 100;
 }
 
 .input-bar input {
@@ -291,5 +295,9 @@ body.detector-page {
   overflow: hidden;
 }
 
+#newsInput {
+  flex: 1;
+  min-width: 0;
+}
 
 
