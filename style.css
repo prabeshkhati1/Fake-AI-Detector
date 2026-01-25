@@ -272,16 +272,15 @@ body.detector-page {
 }
 
 .icon-btn {
-  font-size: 22px;        /* Bigger icon */
+  font-size: 22px;        /* already good */
   background: transparent;
   border: none;
   color: #9ee7ff;
   cursor: pointer;
   padding: 8px 12px;
-}
 
-.icon-btn:hover {
-  color: #00ffcc;
+  position: relative;    /* ADD THIS */
+  z-index: 10;            /* ADD THIS */
 }
 
 #imageInput {
