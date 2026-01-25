@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <title>Fake News Detector</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
 <body class="detector-page">
@@ -25,32 +21,25 @@
   <main class="detector-main">
     <div class="info-card">
       Paste news text or upload an image containing news content.
-      The system will analyze whether it is likely fake or real.
     </div>
 
     <div class="chat-area" id="chatArea"></div>
   </main>
 
   <!-- INPUT BAR -->
-  <div class="input-bar">
+  <footer class="input-bar">
+    <label for="imageInput" class="icon-btn">📎</label>
 
-    <!-- Upload icon (mobile safe) -->
-    <label for="imageInput" class="icon-btn" title="Upload image">
-      📎
-    </label>
-
-    <!-- Text input -->
     <input
-      type="text"
       id="newsInput"
+      type="text"
       placeholder="Paste news text here or upload an image..."
     />
 
-    <!-- Send -->
     <button class="send-btn" onclick="sendMessage()">➤</button>
-  </div>
+  </footer>
 
-  <!-- Hidden file input (ONLY ONE) -->
+  <!-- HIDDEN FILE INPUT -->
   <input
     type="file"
     id="imageInput"
@@ -61,6 +50,5 @@
   <!-- OCR -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <script src="detector.js"></script>
-
 </body>
 </html>
