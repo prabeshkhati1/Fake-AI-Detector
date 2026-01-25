@@ -1,68 +1,51 @@
-function sendMessage() {
-  const input = document.getElementById("newsInput");
-  const chat = document.getElementById("chatArea");
-
-  const text = input.value.trim();
-  if (!text) return;
-
-  // User message bubble
-  const userMsg = document.createElement("div");
-  userMsg.className = "chat user";
-  userMsg.innerText = text;
-  chat.appendChild(userMsg);
-
-  // Fake AI response (placeholder)
-  const aiMsg = document.createElement("div");
-  aiMsg.className = "chat ai";
-  aiMsg.innerText =
-    "🧠 AI Analysis:\nThis news appears to be REAL with high confidence.\n\n(ML model integration pending)";
-  
-  setTimeout(() => {
-    chat.appendChild(aiMsg);
-    chat.scrollTop = chat.scrollHeight;
-  }, 600);
-
-  input.value = "";
-}
-
-function clearChat() {
-  document.getElementById("chatArea").innerHTML = "";
-}
-function openFile() {
-  document.getElementById("imageInput").click();
-}
-
-document.getElementById("imageInput").addEventListener("change", function () {
-  if (this.files.length > 0) {
-    const fileName = this.files[0].name;
-
-    const chat = document.getElementById("chatArea");
-    const imgMsg = document.createElement("div");
-    imgMsg.className = "chat user";
-    imgMsg.innerText = `📎 Image uploaded: ${fileName}`;
-
-    chat.appendChild(imgMsg);
-    chat.scrollTop = chat.scrollHeight;
-  }
-});
-
+// Open file picker when icon is clicked
 function openImagePicker() {
   document.getElementById("imageInput").click();
 }
 
-document.getElementById("imageInput").addEventListener("change", function () {
-  const file = this.files[0];
+// Handle image upload + OCR
+async function handleImageUpload(event) {
+  const file = event.target.files[0];
   if (!file) return;
 
-  const resultBox = document.getElementById("chatArea");
-  resultBox.innerHTML += `
-    <div class="message system">
-      🖼 Image selected: <b>${file.name}</b><br>
-      OCR processing will be applied here.
-    </div>
-  `;
+  const input = document.getElementById("newsInput");
+  input.value = "🔍 Extracting text from image...";
 
-  // FUTURE:
-  // → Send image to OCR (Tesseract.js / backend API)
-});
+  try {
+    const { data } = await Tesseract.recognize(
+      file,
+      "eng",
+      {
+        logger: m => console.log(m) // OCR progress
+      }
+    );
 
+    const extractedText = data.text.trim();
+
+    if (!extractedText) {
+      input.value = "⚠ No readable text found in image.";
+      return;
+    }
+
+    // Show OCR result to user
+    input.value = extractedText;
+
+  } catch (err) {
+    console.error(err);
+    input.value = "❌ OCR failed. Try another image.";
+  }
+}
+
+// Fake AI response (placeholder for ML model)
+function sendMessage() {
+  const input = document.getElementById("newsInput");
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  alert(
+    "AI Prediction (demo):\n\n" +
+    "Text received successfully.\n" +
+    "Connect your trained ML model here."
+  );
+}
