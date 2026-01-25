@@ -300,4 +300,8 @@ body.detector-page {
   min-width: 0;
 }
 
+body {
+  margin: 0;
+  padding-bottom: 70px; /* space for input bar */
+}
 
