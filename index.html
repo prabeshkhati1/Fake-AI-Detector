@@ -3,50 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <title>AI Fake News Detection System</title>
+
+  <!-- Inter font (very close to reference) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
 <body class="landing">
 
   <div class="overlay"></div>
 
   <main class="hero">
-    <div class="shield">🛡️</div>
+
+    <!-- Shield icon -->
+    <div class="shield-icon">
+      🛡️
+    </div>
 
     <h1>AI Fake News Detection System</h1>
     <h2>Think Before You Believe</h2>
 
-    <p>
+    <p class="hero-text">
       Our advanced AI system analyzes news articles and images to detect
-      misinformation. Using machine learning and OCR, we help identify
-      fake news with confidence scores and explanations.
+      misinformation. Using state-of-the-art OCR technology and machine learning
+      models, we help you identify fake news with confidence scores and detailed
+      explanations.
     </p>
 
     <a href="detector.html" class="btn">Launch Detector</a>
 
-    <div class="features">
+    <section class="features">
+
       <div class="card">
-        🔍
+        <div class="icon">🔍</div>
         <h3>Text Analysis</h3>
-        <p>Paste news text and get instant AI-based verification.</p>
+        <p>Paste news text directly and get instant analysis with pattern detection.</p>
       </div>
 
       <div class="card">
-        🖼️
+        <div class="icon">🖼️</div>
         <h3>Image OCR</h3>
-        <p>Upload screenshots of news and extract text automatically.</p>
+        <p>Upload screenshots of news and extract text automatically using EasyOCR.</p>
       </div>
 
       <div class="card">
-        ✅
-        <h3>Verdict</h3>
-        <p>Clear fake/real result with confidence score.</p>
+        <div class="icon">✅</div>
+        <h3>Verdict & Explanation</h3>
+        <p>Get clear verdicts with confidence scores and detailed reasoning.</p>
       </div>
+
+    </section>
+
+    <div class="disclaimer">
+      Academic Project Disclaimer: This system is developed for educational purposes only and should not be used as the sole basis for determining news credibility.
     </div>
 
-    <footer>
-      Academic Project Disclaimer: Results are for educational purposes only.
-    </footer>
   </main>
 
 </body>
