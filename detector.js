@@ -28,3 +28,20 @@ function sendMessage() {
 function clearChat() {
   document.getElementById("chatArea").innerHTML = "";
 }
+function openFile() {
+  document.getElementById("imageInput").click();
+}
+
+document.getElementById("imageInput").addEventListener("change", function () {
+  if (this.files.length > 0) {
+    const fileName = this.files[0].name;
+
+    const chat = document.getElementById("chatArea");
+    const imgMsg = document.createElement("div");
+    imgMsg.className = "chat user";
+    imgMsg.innerText = `📎 Image uploaded: ${fileName}`;
+
+    chat.appendChild(imgMsg);
+    chat.scrollTop = chat.scrollHeight;
+  }
+});
