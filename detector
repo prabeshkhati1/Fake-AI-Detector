@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fake News Detector</title>
+
+  <!-- Same font as landing page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="detector-page">
+
+  <!-- TOP BAR -->
+  <header class="detector-header">
+    <a href="index.html" class="nav-icon">←</a>
+    <h1>Fake News Detector</h1>
+    <button class="nav-icon" onclick="clearChat()">🗑️</button>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="detector-main">
+
+    <div class="info-card">
+      <p>
+        Welcome to the AI Fake News Detection System. You can either type or paste
+        news text, or upload an image containing news content for analysis.
+      </p>
+    </div>
+
+    <!-- EMPTY SPACE (chat area placeholder) -->
+    <div class="chat-area" id="chatArea"></div>
+
+  </main>
+
+  <!-- INPUT BAR -->
+  <footer class="input-bar">
+    <input
+      type="text"
+      id="newsInput"
+      placeholder="Paste news text here or upload an image..."
+    />
+    <button onclick="sendMessage()">➤</button>
+  </footer>
+
+  <script src="detector.js"></script>
+</body>
+</html>
