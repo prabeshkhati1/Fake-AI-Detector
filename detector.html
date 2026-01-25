@@ -38,36 +38,40 @@
   </main>
 
   <!-- INPUT BAR -->
-  <footer class="input-bar">
-  <!-- Hidden file input -->
-  <input type="file" id="imageInput" accept="image/*" hidden />
-
+<footer class="input-bar">
   <!-- Upload button -->
-<button class="icon-btn" onclick="openImagePicker()" title="Upload image for OCR">
-  📎
-</button>
+  <button class="icon-btn" onclick="openImagePicker()" title="Upload image for OCR">
+    📎
+  </button>
 
-<!-- Hidden file input -->
+  <!-- Text input -->
+  <input
+    type="text"
+    id="newsInput"
+    placeholder="Paste news text here or upload an image..."
+  />
+
+  <!-- Send button -->
+  <button class="send-btn" onclick="sendMessage()">
+    ➤
+  </button>
+</footer>
+
+<!-- Hidden file input for OCR -->
 <input
   type="file"
   id="imageInput"
-  accept="image/png, image/jpeg"
+  accept="image/*"
   hidden
   onchange="handleImageUpload(event)"
 />
 
-<!-- Text input -->
-<input
-  type="text"
-  id="newsInput"
-  placeholder="Paste news text here or upload an image..."
-/>
-
-<!-- OCR FIRST -->
+<!-- OCR library -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
-<!-- YOUR LOGIC -->
+<!-- Your JS -->
 <script src="detector.js"></script>
+
 
 
 </body>
