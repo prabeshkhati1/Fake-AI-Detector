@@ -286,7 +286,10 @@ body.detector-page {
 #imageInput {
   position: absolute;
   left: -9999px;
-  opacity: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
+
 
 
