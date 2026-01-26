@@ -3,72 +3,192 @@
 <head>
   <meta charset="UTF-8" />
   <title>AI Fake News Detection System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Inter font (very close to reference) -->
+  <!-- Inter font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      min-height: 100vh;
+      background: radial-gradient(circle at top, #0f2a4f 0%, #020617 70%);
+      color: #e5e7eb;
+      overflow-x: hidden;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(2, 6, 23, 0.65),
+        rgba(2, 6, 23, 0.9)
+      );
+      z-index: 0;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 90px 20px 70px;
+      text-align: center;
+    }
+
+    .shield-icon {
+      font-size: 64px;
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 90px;
+      height: 90px;
+      border-radius: 24px;
+      background: rgba(34, 197, 94, 0.15);
+      color: #22c55e;
+      box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.25),
+        0 20px 60px rgba(34, 197, 94, 0.25);
+    }
+
+    h1 {
+      font-size: 44px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      color: #86efac;
+      margin-bottom: 26px;
+    }
+
+    .hero-text {
+      max-width: 720px;
+      margin: 0 auto 38px;
+      font-size: 15.5px;
+      line-height: 1.65;
+      color: #cbd5f5;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 36px;
+      border-radius: 999px;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.35);
+    }
+
+    .features {
+      margin-top: 70px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px;
+    }
+
+    .card {
+      padding: 28px 26px 30px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+    }
+
+    .card .icon {
+      font-size: 40px;
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+      box-shadow:
+        0 0 0 1px rgba(34, 197, 94, 0.2),
+        0 10px 30px rgba(34, 197, 94, 0.25);
+    }
+
+    .card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .card p {
+      font-size: 14.5px;
+      line-height: 1.65;
+    }
+
+    .disclaimer {
+      margin-top: 70px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+  </style>
 </head>
 
-<body class="landing">
-
+<body>
   <div class="overlay"></div>
 
   <main class="hero">
-
-    <!-- Shield icon -->
-    <div class="shield-icon">
-      🛡️
-    </div>
+    <div class="shield-icon">🛡️</div>
 
     <h1>AI Fake News Detection System</h1>
-    <br>
     <h2>"Think Before You Believe"</h2>
 
     <p class="hero-text">
       Our advanced AI system analyzes news articles and images to detect
-      misinformation. Using state-of-the-art OCR technology and machine learning
-      models, we help you identify fake news with confidence scores and detailed
-      explanations.
+      misinformation using OCR and machine learning models.
     </p>
 
     <a href="detector.html" class="btn">Launch Detector</a>
 
     <section class="features">
-
       <div class="card">
         <div class="icon">🔍</div>
         <h3>Text Analysis</h3>
-        <p>Paste news text directly and get instant analysis with pattern detection.</p>
+        <p>Paste news text directly and get instant analysis.</p>
       </div>
 
       <div class="card">
         <div class="icon">🖼️</div>
         <h3>Image OCR</h3>
-        <p>Upload screenshots of news and extract text automatically using EasyOCR.</p>
+        <p>Upload screenshots and extract text automatically.</p>
       </div>
 
       <div class="card">
         <div class="icon">✅</div>
         <h3>Verdict & Explanation</h3>
-        <p>Get clear verdicts with confidence scores and detailed reasoning.</p>
+        <p>Clear verdicts with confidence scores.</p>
       </div>
-
     </section>
-<br>
-    <br>
-    <br>
-    <br>
-  
-    <br>
+
     <div class="disclaimer">
       Academic Project Credit: Prabesh (Team Lead), Nirdosh, Koshish
     </div>
-
   </main>
-
 </body>
 </html>
