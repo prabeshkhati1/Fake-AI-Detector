@@ -20,10 +20,56 @@ function handleImageUpload(event) {
   });
 }
 
-function sendMessage() {
+async function sendMessage() {
   const input = document.getElementById("newsInput");
-  if (!input.value.trim()) return;
-  alert("Text ready for analysis:\n\n" + input.value);
+  const text = input.value.trim();
+  if (!text) return;
+
+  const chatArea = document.getElementById("chatArea");
+
+  // Show loading message
+  chatArea.innerHTML += `
+    <div class="message user">${text}</div>
+    <div class="message bot">⏳ Analyzing news...</div>
+  `;
+
+  try {
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ text })
+    });
+
+    const data = await response.json();
+
+    // Remove loading message
+    chatArea.lastElementChild.remove();
+
+    // Handle short input case
+    if (data.result === "Input too short for reliable prediction") {
+      chatArea.innerHTML += `
+        <div class="message bot">⚠️ Please enter a longer news article (at least 20–30 words).</div>
+      `;
+      return;
+    }
+
+    // Show prediction
+    chatArea.innerHTML += `
+      <div class="message bot">
+        🧠 <strong>Result:</strong> ${data.result}<br>
+        📊 <strong>Confidence:</strong> ${data.confidence}%
+      </div>
+    `;
+
+  } catch (error) {
+    console.error(error);
+    chatArea.lastElementChild.remove();
+    chatArea.innerHTML += `
+      <div class="message bot">❌ Backend not reachable. Is the server running?</div>
+    `;
+  }
 }
 
 function clearChat() {
