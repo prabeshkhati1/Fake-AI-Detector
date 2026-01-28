@@ -63,6 +63,7 @@ async function sendMessage() {
 
     chatArea.innerHTML += `
       <div class="message bot">
+      <br><br>
         🧠 <strong>Result:</strong> ${data.result}<br>
         📊 <strong>Confidence:</strong> ${data.confidence}%
       </div>
