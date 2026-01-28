@@ -50,5 +50,17 @@
   <!-- OCR -->
   <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
   <script src="detector.js"></script>
+  <script>
+  const newsInput = document.getElementById("newsInput");
+    
+// enter key storke for keyboard 
+  newsInput.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      sendMessage();
+    }
+  });
+</script>
+
 </body>
 </html>
