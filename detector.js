@@ -61,13 +61,13 @@ async function sendMessage() {
       return;
     }
 
-    chatArea.innerHTML += `
-      <div class="message bot">
-      <br><br>
-        🧠 <strong>Result:</strong> ${data.result}<br>
-        📊 <strong>Confidence:</strong> ${data.confidence}%
-      </div>
-    `;
+   chatArea.innerHTML += `
+  <div class="message bot" style="margin-top: 16px;">
+    🧠 <strong>Result:</strong> ${data.result}<br>
+    📊 <strong>Confidence:</strong> ${data.confidence}%
+  </div>
+`;
+
   } catch (error) {
     console.error(error);
     chatArea.lastElementChild.remove();
