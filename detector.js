@@ -33,6 +33,9 @@ async function sendMessage() {
     <div class="message bot">⏳ Analyzing news...</div>
   `;
 
+  // 🔽 AUTO-SCROLL (added)
+  chatArea.scrollTop = chatArea.scrollHeight;
+
   try {
     const response = await fetch("https://fake-news-backend-w7p0.onrender.com/predict", {
       method: "POST",
@@ -49,29 +52,4 @@ async function sendMessage() {
 
     // Handle short input case
     if (data.result === "Input too short for reliable prediction") {
-      chatArea.innerHTML += `
-        <div class="message bot">⚠️ Please enter a longer news article (at least 20–30 words).</div>
-      `;
-      return;
-    }
-
-    // Show prediction
-    chatArea.innerHTML += `
-      <div class="message bot">
-        🧠 <strong>Result:</strong> ${data.result}<br>
-        📊 <strong>Confidence:</strong> ${data.confidence}%
-      </div>
-    `;
-
-  } catch (error) {
-    console.error(error);
-    chatArea.lastElementChild.remove();
-    chatArea.innerHTML += `
-      <div class="message bot">❌ Backend not reachable. Is the server running?</div>
-    `;
-  }
-}
-
-function clearChat() {
-  document.getElementById("chatArea").innerHTML = "";
-}
+      chatArea.innerHTML
