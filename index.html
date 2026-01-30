@@ -1,194 +1,306 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>AI Fake News Detection System</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>AI Fake News Detection System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Inter font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+a { color: inherit; text-decoration: none; }
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+/* ================= VARIABLES ================= */
+:root {
+  --bg: #f5f5f7;
+  --surface: #ffffff;
+  --text-primary: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --danger: #dc2626;
+  --radius: 22px;
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+}
 
-    body {
-      font-family: "Inter", system-ui, sans-serif;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #0f2a4f 0%, #020617 70%);
-      color: #e5e7eb;
-      overflow-x: hidden;
-    }
+/* ================= BODY ================= */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue",
+               Helvetica, Arial, system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(2, 6, 23, 0.65),
-        rgba(2, 6, 23, 0.9)
-      );
-      z-index: 0;
-    }
+/* ================= CURSOR (DESKTOP ONLY) ================= */
+@media (hover: hover) {
+  body { cursor: none; }
 
-    .hero {
-      position: relative;
-      z-index: 1;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 90px 20px 70px;
-      text-align: center;
-    }
+  .cursor-ring {
+    position: fixed;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.05);
+    backdrop-filter: blur(8px);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+  }
 
-    .shield-icon {
-      font-size: 80px;
-      margin-bottom: 24px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 90px;
-      height: 90px;
-      border-radius: 24px;
-      background: rgba(34, 197, 94, 0.15);
-      color: #22c55e;
-      box-shadow:
-        0 0 0 1px rgba(34, 197, 94, 0.25),
-        0 20px 60px rgba(34, 197, 94, 0.25);
-    }
+  .cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+  }
+}
 
-    h1 {
-      font-size: 44px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
+/* ================= HERO ================= */
+.hero {
+  max-width: 980px;
+  margin: auto;
+  padding: 90px 20px 90px;
+  text-align: center;
+}
 
-    h2 {
-      font-size: 18px;
-      font-weight: 500;
-      color: #86efac;
-      margin-bottom: 26px;
-    }
+/* ================= REVEAL ================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: 1s var(--ease);
+}
+.reveal.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
 
-    .hero-text {
-      max-width: 720px;
-      margin: 0 auto 38px;
-      font-size: 15.5px;
-      line-height: 1.65;
-      color: #cbd5f5;
-    }
+/* ================= SHIELD ================= */
+.shield {
+  width: 160px;
+  height: 160px;
+  margin-bottom: 36px;
+  animation: shieldFloat 5s ease-in-out infinite,
+             shieldPulse 3.2s ease-in-out infinite;
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 36px;
-      border-radius: 999px;
-      background: #22c55e;
-      color: #022c22;
-      font-weight: 600;
-      font-size: 15px;
-      text-decoration: none;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
+.shield:hover {
+  transform: scale(1.1);
+}
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 30px rgba(34, 197, 94, 0.35);
-    }
+@keyframes shieldFloat {
+  50% { transform: translateY(-18px); }
+}
 
-    .features {
-      margin-top: 70px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 26px;
-    }
+@keyframes shieldPulse {
+  0%,100% { filter: drop-shadow(0 0 0 rgba(0,0,0,0)); }
+  50% { filter: drop-shadow(0 0 36px rgba(0,0,0,0.22)); }
+}
 
-    .card {
-      padding: 28px 26px 30px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(10px);
-    }
+/* ================= TEXT ================= */
+h1 {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
 
-    .card .icon {
-      font-size: 40px;
-      margin-bottom: 18px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 72px;
-      height: 72px;
-      border-radius: 18px;
-      background: rgba(34, 197, 94, 0.12);
-      color: #22c55e;
-      box-shadow:
-        0 0 0 1px rgba(34, 197, 94, 0.2),
-        0 10px 30px rgba(34, 197, 94, 0.25);
-    }
+/* QUOTED RED LINE (SUBTLE ANIMATION) */
+h2 {
+  font-size: 20px;                 /* slightly smaller */
+  font-weight: 700;
+  color: var(--danger);
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+  animation: quoteFloat 4s ease-in-out infinite;
+}
 
-    .card h3 {
-      font-size: 17px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
+@keyframes quoteFloat {
+  50% { transform: translateY(-3px); opacity: 0.85; }
+}
 
-    .card p {
-      font-size: 14.5px;
-      line-height: 1.65;
-    }
+.hero p {
+  max-width: 720px;
+  margin: 0 auto 52px;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
 
-    .disclaimer {
-      margin-top: 70px;
-      font-size: 13px;
-      color: #94a3b8;
-    }
-  </style>
+/* ================= BUTTON ================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 48px;
+  border-radius: 999px;
+  background: var(--text-primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+
+.btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 22px 48px rgba(0,0,0,0.2);
+}
+
+/* ================= FEATURES ================= */
+.features {
+  margin-top: 60px;               /* PUSHED UP */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 32px;
+}
+
+/* ================= ICON BOX ================= */
+.icon-box {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.4s var(--ease);
+}
+
+.card:hover .icon-box {
+  transform: scale(1.15);
+}
+
+.icon-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* ================= CARD ================= */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: 40px;
+  box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+  transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.14);
+}
+
+.card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* ================= DISCLAIMER ================= */
+.disclaimer {
+  margin-top: 110px;
+  font-size: 13px;
+  color: #8e8e93;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  .hero {
+    padding: 70px 16px 80px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+
+  .features {
+    margin-top: 50px;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="overlay"></div>
 
-  <main class="hero">
-    <div class="shield-icon">🛡️</div>
+<div class="cursor-ring"></div>
+<div class="cursor-dot"></div>
 
-    <h1>AI Fake News Detection System</h1>
-    <h2>"Think Before You Believe"</h2>
+<main class="hero">
 
-    <p class="hero-text">
-      Our advanced AI system analyzes news articles and images to detect
-      misinformation. Using state-of-the-art OCR technology and machine learning models, we help you identify fake news with confidence scores and detailed explanations.
-    </p>
+  <a href="detector.html">
+    <img src="assets/shield.png" alt="Security Shield" class="shield reveal">
+  </a>
 
-    <a href="detector.html" class="btn">Launch Detector</a>
+  <h1 class="reveal">AI Fake News Detection System</h1>
+  <h2 class="reveal">“Think Before You Believe”</h2>
 
-    <section class="features">
-      <div class="card">
-        <div class="icon">🔍</div>
-        <h3>Text Analysis</h3>
-        <p>Paste news text directly and get instant analysis.</p>
+  <p class="reveal">
+    A clean, modern AI system that analyzes news text and images using
+    machine learning and OCR to identify misinformation with clarity
+    and confidence.
+  </p>
+
+  <a href="detector.html" class="btn reveal">Launch Detector</a>
+
+  <section class="features">
+    <a href="detector.html" class="card reveal">
+      <div class="icon-box">
+        <img src="assets/search.png" alt="Text Analysis">
       </div>
+      <h3>Text Analysis</h3>
+      <p>Instant credibility evaluation for written content.</p>
+    </a>
 
-      <div class="card">
-        <div class="icon">🖼️</div>
-        <h3>Image OCR</h3>
-        <p>Upload screenshots and extract text automatically.</p>
+    <a href="detector.html" class="card reveal">
+      <div class="icon-box">
+        <img src="assets/image.png" alt="Image OCR">
       </div>
+      <h3>Image OCR</h3>
+      <p>Extract and analyze text from images with precision.</p>
+    </a>
 
-      <div class="card">
-        <div class="icon">✅</div>
-        <h3>Verdict & Explanation</h3>
-        <p>Clear verdicts with confidence scores.</p>
+    <a href="detector.html" class="card reveal">
+      <div class="icon-box">
+        <img src="assets/verified.png" alt="Verdict">
       </div>
-    </section>
+      <h3>Verdict</h3>
+      <p>Clear, explainable results you can trust.</p>
+    </a>
+  </section>
 
-    <div class="disclaimer">
-      Academic Project Credit: Prabesh (Team Lead), Nirdosh, Koshish
-    </div>
-  </main>
+  <div class="disclaimer reveal">
+    Academic Project Credit: Prabesh (Team Lead), Nirdosh, Koshish
+  </div>
+</main>
+
+<script>
+/* Cursor tracking (desktop only) */
+if (window.matchMedia("(hover: hover)").matches) {
+  const ring = document.querySelector(".cursor-ring");
+  const dot = document.querySelector(".cursor-dot");
+
+  window.addEventListener("mousemove", e => {
+    ring.style.left = dot.style.left = e.clientX + "px";
+    ring.style.top = dot.style.top = e.clientY + "px";
+  });
+}
+
+/* Scroll reveal */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add("show");
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
